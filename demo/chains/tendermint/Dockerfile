@@ -2,6 +2,8 @@ ARG GOLAGN_VER=1.15.8
 ARG ALPINE_VER=3.13
 
 FROM golang:${GOLAGN_VER}-alpine${ALPINE_VER} AS scaffold-initializer
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache jq=1.6-r1 bash=5.1.16-r0
 
 WORKDIR /root

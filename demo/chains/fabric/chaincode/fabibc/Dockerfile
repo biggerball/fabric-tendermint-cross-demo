@@ -2,6 +2,8 @@ ARG GO_VER=1.16
 ARG ALPINE_VER=3.13
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER} as builder
+RUN go env -w GOPROXY=https://goproxy.cn,direct
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache \
     gcc=10.2.1_pre1-r3 \
     libc-dev=0.7.2-r3
